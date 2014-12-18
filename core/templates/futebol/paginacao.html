@@ -1,0 +1,7 @@
+{% load endless %}
+
+{% paginate entries %}
+{% for entry in entries %}
+    {{entry.name}}<br>
+{% endfor %}
+{% show_more %}

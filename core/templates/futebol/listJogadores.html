@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load endless %}
+{% load staticfiles %}
+{% block content %}
+
+
+    <div data-role="header" data-theme="c">
+      <a data-iconpos="left" href="/futebol/equipes/edit/{{equipe.pk}}/" data-role="button" data-icon="carat-l" title="Equipe"><small>{{equipe.display}}</small></a>
+      <h2> FUTEBOL  </h2>
+    </div>
+    <div data-role="header" data-theme="e">
+      <h2> Jogadores</h2>
+    </div>
+
+
+    <div data-role="content" class="ui-content" align="center" >
+            <a align="center" href="/futebol/jogadores/new/{{equipe.pk}}/"  rel="external" data-theme="g" data-role="button" data-iconpos="right" data-icon="plus">Novo Jogador</a>
+
+            {% if jogadores %}
+            <ul data-theme="a" data-role="listview" text-align="center" data-inset="true">
+
+              <li data-role="list-divider" data-theme="a" >JOGADORES</li>
+              <li data-role="list-divider" data-theme="c" ></li>
+                {% paginate jogadores %}
+                {% for jogador in jogadores %}
+                <li><a title="EDITAR" href="/futebol/jogadores/edit/{{ jogador.pk }}/" rel="external">{{ jogador.nome}}<span class="ui-li-count">{{ jogador.num}}</span></a></li>
+                <li></li>
+                {% endfor %}
+                {% get_pages %}
+                Mostrando jogadores
+                {{ pages.current_start_index }}-{{ pages.current_end_index }} de
+                {{ pages.total_count }}.
+                <br>
+
+                <div id="pagination" class="pagination" data-theme-content="b">
+                {{ pages}}
+                </div>
+            </ul>
+            {% else %}
+
+              <p class="ui-body-d ui-overlay-d">Não há jogadores cadastrados. Cadastrar <a href="/futebol/jogadores/new/{{equipe.pk}}/" rel="external">aqui</a>.</p>
+            {% endif %}
+    </div>
+{% endblock content %}
+{% block js %}
+    <script>
+        $( "#pagination" ).on( "click", function() {
+            $.mobile.loadPage( "/futebol/jogadores/{{equipe.pk}}/");
+            console.log('eita');
+            "document.getElementById('p1').style.visibility='hidden'"
+          });
+
+    </script>
+
+{% endblock js %}
+

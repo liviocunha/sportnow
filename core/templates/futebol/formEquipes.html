@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load endless %}
+{% load staticfiles %}
+{% block content %}
+
+
+    <div data-role="header" data-theme="c">
+      <a data-iconpos="left" href="/futebol/equipes/" data-role="button" data-icon="carat-l" title="Equipes">Equipes</a>
+      <h2> FUTEBOL  </h2>
+    </div>
+    <div data-role="header" data-theme="e">
+      <h1> Equipes</h1>
+    </div>
+
+
+    <div data-role="content" class="ui-content" align="center" >
+        <form class="form-horizontal" action="/futebol/equipes/save" method="POST" data-ajax="false" data-role="form">{% csrf_token %}
+
+          {% if form.errors %}
+          <div data-role="header" data-theme="d">
+             <h2><strong>Erro!</strong></h2>
+             {{ form.errors.as_text }}
+          </div>
+          {% endif %}
+
+          <input name="id"  value="{{ form.initial.id|default:'' }}" type="hidden" >
+          <input name="{{ form.user.name }}"  value="{{ user.id|default:'' }}" type="hidden" >
+            
+          {% if form.initial.id > 0 %}
+          <h3> <strong>EDITAR</strong></h3>
+          {% else %}
+          <h3> <strong>NOVO</strong> </h3>
+          {% endif %}
+            
+                <div class="ui-body-a" >
+                        <br>
+                           
+                                <label for="name">Nome da Equipe:</label>
+                                <input type="text" required value="{% if form.initial.id > 0 %} {{ form.name.value }}{% endif %}" name="{{ form.name.name }}" id="idNome" placeholder="Ex: Santos Futebol Clube" />
+                            
+
+
+                            
+                                <label for="name">Hashtag:</label>
+                                <input type="text" required size=10 value="{% if form.initial.id > 0 %} {{ form.hashtag.value }}{% endif %}" name="{{ form.hashtag.name }}" id="idHashtag" placeholder="Ex: SAN" />
+                           
+
+                            
+                                <label for="name">Display:</label>
+                                <input type="text" required size=10 value="{% if form.initial.id > 0 %} {{ form.display.value }}{% endif %}" name="{{ form.display.name }}" id="idDisplay" placeholder="Ex: Santos" />
+                            
+
+
+                        <br>
+
+                            <div class="ui-grid-a">
+                                <div class="ui-block-a"><button class="ui-btn-g" data-ajax="false" data-theme="g" type="submit" >Salvar</button></div>
+                                <div class="ui-block-b"><a href="/futebol/equipes" rel="external"  data-role="button" data-theme="a" >Cancelar</a></div>
+                            </div>
+
+
+
+                            {% if form.initial.id > 0 %}
+                             <a href="/futebol/jogadores/{{ form.initial.id }}/"  rel="external" data-theme="f" data-role="button"  data-iconpos="top" data-icon="bullets">Jogadores</a>
+                             <a href="/futebol/equipes/del/{{ form.initial.id }}/"  rel="external" data-theme="d" data-role="button" data-iconpos="top" data-icon="delete">Excluir</a>
+
+
+                              {% endif %}
+                 </form>
+    </div></div>
+
+{% endblock content %}

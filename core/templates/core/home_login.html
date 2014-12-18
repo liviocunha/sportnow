@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}themes/css/jquery.mobile.flatui.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}themes/css/jquery.mobile.flatui.min.css" />
+
+    <script src="{{ STATIC_URL }}themes/jquery.js"></script>
+    <script src="{{ STATIC_URL }}themes/jquery.mobile-1.4.2.min.js"></script>
+  </head>
+  
+  <body>
+    <div data-role="header">
+      <a data-iconpos="left" data-role="button" href="/logado/0" data-icon="home" title="Home" >Home</a>
+      <h1></h1>
+      <a data-iconpos="right" href="#panel1" data-role="button" data-icon="flat-menu" title="Menu" >Menu</a>
+    </div>
+    
+           <a href="{% url 'account_login' %}"  rel="external" data-theme="d" data-role="button" data-iconpos="left" data-icon="flat-man">Sport NOW!</a>
+    
+    </body>
+ <div data-role="footer"><p align="center" >&copy; Sport <strong>NOW!</strong> - 2014</p></div>
+</html>

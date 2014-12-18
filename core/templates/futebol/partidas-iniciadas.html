@@ -1,0 +1,67 @@
+
+{% extends 'base.html' %}
+{% load endless %}
+{% load staticfiles %}
+{% block content %}
+    <div data-role="header" data-theme="c">
+      <a data-iconpos="left" href="/futebol/" data-role="button" data-icon="carat-l" title="Futebol"><small>Dashboard</small></a>
+      <h1>FUTEBOL</h1>
+      <a data-iconpos="right" href="#panel1" data-role="button" data-icon=""></a>
+    </div>
+    <div data-role="header" data-theme="e">
+      <h2>Partidas</h2>
+    </div> 
+
+    	<!-- panel1  -->
+      <div data-role="panel" style="background:#2c3e50" id="panel1" data-theme="a" data-position="right" data-display="reveal" >
+            <h3 align="center" data-theme="a" data-role="header"> MENU</h3>
+            <a href="/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="c" data-role="button" data-iconpos="left" data-icon="">Home</a>
+  
+            <p align="center" data-role="header" >Futebol:</p>
+            <a href="/futebol/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Dashboard</a>
+            <a href="/futebol/equipes/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Equipes</a>
+            <a href="/futebol/comentarios/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Comentários</a>
+            
+            <p align="center" data-role="header" >Perfil:</p>
+            <a href="/accounts/social/connections/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Redes Sociais</a>
+            <a href="/accounts/logout/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Logout</a>
+            <a href="#" data-rel="close" class="ui-btn ui-btn-c ui-btn-d ui-mini ui-icon-delete" rel="external" data-theme="d" data-role="button" data-iconpos="left" data-icon="delete">Fechar</a>  
+            </div>
+      <!-- /panel1  -->  
+    <br>
+    <div data-role="content" class="ui-content" align="center" >
+            <a align="center" href="/futebol/partidas/escolhaequipes"  rel="external" data-theme="g" data-role="button" data-iconpos="right" data-icon="dribbble" class="ui-nodisc-icon" >Nova Partida</a>
+
+
+
+            {% if partidas_iniciadas %}
+            <ul data-theme="a" data-role="listview" text-align="center" data-inset="true">
+
+              <li data-role="list-divider" data-theme="a" >Partidas </li>
+              <li data-role="list-divider" data-theme="c" >Local | Data</li>
+                {% paginate partidas_iniciadas %}
+                {% for partida in partidas_iniciadas %}
+                <li data-icon="dribbble" ><a title="CONTINUAR" href="/futebol/partidas/iniciar/{{ partida.pk }}/" rel="external">{{  partida.local}} | {{ partida.data}}<span class="ui-li-count">{{partida.hora}}</span> </a></li>
+                <li></li>
+                {% endfor %}
+                {% get_pages %}
+                Mostrando Partidas iniciadas
+                {{ pages.current_start_index }}-{{ pages.current_end_index }} de
+                {{ pages.total_count }}.
+                <br>
+
+                <div class="pagination" data-theme="b">
+                {{ pages}}
+                </div>
+                
+                 
+            </ul>
+            {% else %}
+            <div data-role="header" data-theme="d"> 
+              <p>ERRO: Não há partidas iniciadas.</p>
+            </div>
+            {% endif %}
+    </div>
+{% endblock content %}
+
+

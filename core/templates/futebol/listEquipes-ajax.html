@@ -1,0 +1,11 @@
+<h2>Entries:</h2>
+{% include page_template %}
+
+{% block js %}
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+    <script>    $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollChunkSize: 5
+        });</script>
+{% endblock %}

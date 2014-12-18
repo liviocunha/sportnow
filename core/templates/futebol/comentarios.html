@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load endless %}
+{% block content %}
+
+
+    <div data-role="header" data-theme="c">
+        <a data-iconpos="left" href="/futebol/" data-role="button" data-icon="carat-l" title="Modalidades"><small>Futebol</small></a>
+        <h4> FUTEBOL</h4>
+        <a data-iconpos="left" href="/futebol/" data-role="button" data-icon="" title=""></a>
+    </div>
+    <div data-role="header" data-theme="e">
+      <h2> Comentários</h2>
+    </div>
+
+      <!-- panel1  -->
+        <div data-role="panel" style="background:#2c3e50" id="panel1" data-theme="a" data-position="right" data-display="reveal" >
+            <h3 align="center" data-theme="a" data-role="header"> MENU</h3>
+            <a href="/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="c" data-role="button" data-iconpos="left" data-icon="">Home</a>
+            <p align="center" data-role="header" >Futebol:</p>
+            <a href="/futebol/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Dashboard</a>
+            <a href="/futebol/partidas/iniciadas/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Partidas</a>
+            <a href="/futebol/equipes/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Equipes</a>
+            
+            <p align="center" data-role="header" >Perfil:</p>
+            <a href="/accounts/social/connections/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Redes Sociais</a>
+            <a href="/accounts/logout/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Logout</a>
+          	<a href="#" data-rel="close" class="ui-btn ui-btn-d ui-mini ui-icon-delete" rel="external" data-theme="d" data-role="button" data-iconpos="left" data-icon="delete">Fechar</a>        </div>
+      <!-- /panel1  -->  
+
+    <div data-role="main" class="ui-content" align="center" data-theme="a" >
+        <div align="center">
+        <a href="/futebol/comentarios/escolha" rel="external" class="ui-btn ui-btn-g ui-nodisc-icon ui-corner-all ui-btn-inline ui-btn-icon-right ui-icon-plus">Novo</a>
+        <a href="/futebol/categorias" rel="external" class="ui-btn ui-btn-f ui-corner-all ui-nodisc-icon ui-btn-inline ui-btn-icon-right ui-icon-bullets">Categorias</a>
+        <a href="/futebol/tipos/" rel="external" class="ui-btn ui-btn-f ui-corner-all ui-nodisc-icon ui-btn-inline ui-btn-icon-right ui-icon-info-circle">Tipos</a>
+        </div>
+        </br>
+
+
+        <input type="search" name="txtBusca" id="txtBusca" value="" placeholder="Gooolll...">
+        
+        <label for="select-choice-a" class="select">Categoria:</label>
+            <select name="categoria" id="categoria" data-native-menu="true" data-theme="a">
+                <option value="0">Todos</option>
+                {% for categoria in categorias %}
+                <option value="{{categoria.pk}}">{{categoria.name}}</option>
+                {% endfor %}
+            </select>
+       
+
+        <label for="select-choice-a" class="select">Tipo de Comentário:</label>
+            <select name="tipo" id="tipo" data-native-menu="true" data-theme="a">
+                <option value="all">Todos</option>
+                <option value="SC">Somente Comentário</option>
+                <option value="ST">Somente 1 Time</option>
+                <option value="TT">Casa+Visitante</option>
+                <option value="TJ">Time+Jogador</option>
+                <option value="SJ">Somente 1 Jogador</option>
+                <option value="JJ">JogadorA+JogadorB</option>
+            </select>
+        <button name="busca" id="busca" class="ui-btn ui-btn-f ui-mini" type="submit" >Buscar</button>
+
+
+
+            <ul id="listcomentarios" data-role="listview" text-align="center" data-inset="true">
+            </ul>
+
+
+
+
+
+
+{% endblock content %}
+{% block js %}
+    <script>
+
+        $('#busca').on('click', buscar);
+
+        function buscar(){
+            var text = $('#txtBusca').val();
+            var cat = $('#categoria').val();
+            var tipo = $('#tipo').val();
+            dados = {'text':text, 'tipo':tipo, 'cat':cat};
+            $.ajax({
+                data : dados,
+                url : '/futebol/buscarcomentarios/',
+                type: 'get',
+                cache: false,
+                success: function(data){
+                    console.log(data);
+ 
+                    if (data.length >= '1' ){
+                        var html = '<li data-role="list-divider" data-theme="a" >Comentários<span class="ui-li-count">'+data.length+'</span></li><li></li>'
+                        for (var i = 0; i < data.length; i++) {
+                            html += '<li data-theme="a" ><a title="EDITAR" href="/futebol/comentarios/edit/'+data[i].pk+'/" rel="external"><h2>'+data[i].fields.name+'</h2><p>'+data[i].fields.desc+'</p></a></li><li data-theme="a" ></li>'
+                        }
+                      $('#listcomentarios').html(html);     
+                   }else{
+                       var html = ''
+                        html += '<li data-role="list-divider" data-theme="a" >Comentários</li><li><small>Sem comentários.</small></li>'
+                      $('#listcomentarios').html(html);
+                   }                        
+                   
+      
+                      $('#listcomentarios').html(html);
+                    $('#listcomentarios').listview('refresh');
+
+                }
+
+            });
+        }
+
+    </script>
+{% endblock js %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div data-role="header" data-theme="c">
+      <a data-iconpos="left" href="/futebol/comentarios/" data-role="button" data-icon="carat-l" title="comentarios"><small>Comentários</small></a>
+      <h2> FUTEBOL  </h2>
+    </div>
+    <div data-role="header" data-theme="e">
+
+      <h1> Comentários</h1>
+    </div>
+
+
+    <div data-role="content" class="ui-content" align="center" >
+        <form class="form-horizontal" action="/futebol/comentarios/save" method="POST" data-role="form">{% csrf_token %}
+        
+          {% if form.errors %}
+          <div data-role="header" data-theme="d">
+             <h2><strong>Erro!</strong></h2>
+             {{ form.errors.as_text }}
+          </div>
+          {% endif %}
+
+          <input name="id"  value="{{ form.initial.id|default:'' }}" type="hidden" >
+          <input name="{{ form.user.name }}"  value="{{ user.id|default:'' }}" type="hidden" >
+          <input name="{{ form.categoria.name }}"  value="{{ categoria.pk}}" type="hidden" >
+          <h3> <strong>NOVO</strong> </h3>
+                <div class="ui-body-a" >
+                        <br>                           
+                          <label for="name">Título:</label>
+                          <input type="text" required value="" name="{{ form.name.name }}" id="idNome" placeholder="Ex: Gol de cabeça" />
+                          <label for="textarea">Comentário:</label>
+                          <textarea cols="40" rows="8" name="{{ form.desc.name }}" id="textarea"></textarea>
+                          <label for="name">Tipo</label>
+                          {{form.tipo}}
+                          <label for="name">Categoria:</label>
+                          <input type="text" disabled="disabled" value="{{ categoria.name }}" name="" id="idCategoria"  />
+                          
+               
+                        <br>
+
+                            <div class="ui-grid-a">
+                                <div class="ui-block-a"><button class="ui-btn-g" data-theme="g" type="submit" >Salvar</button></div>
+                                <div class="ui-block-b"><a href="/futebol/comentarios" rel="external"  data-role="button" data-theme="a" >Cancelar</a></div>
+                            </div>
+
+
+
+                            {% if form.initial.id > 0 %}
+                             
+                             <a href="/futebol/comentarios/del/{{ form.initial.id }}/"  rel="external" data-theme="d" data-role="button" data-iconpos="top" data-icon="delete">Excluir</a>
+
+
+                              {% endif %}
+                 </form>
+    </div></div>
+
+{% endblock content %}

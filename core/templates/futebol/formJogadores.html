@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+
+    <div data-role="header" data-theme="c">
+      <a data-iconpos="left" href="/futebol/jogadores/{{equipeobj.id}}" data-role="button" data-icon="carat-l" title="Equipe">{{equipeobj.display}}</a>
+      <h1> FUTEBOL</h1>
+    </div>
+    <div data-role="header" data-theme="e">
+      <h1> Jogadores</h1>
+    </div>
+
+
+
+    <div data-role="content" class="ui-content" align="center" >
+        <form class="form-horizontal" action="/futebol/jogadores/save" method="POST" data-role="form">{% csrf_token %}
+
+          {% if form.errors %}
+          <div data-role="header" data-theme="d">
+             <h2><strong>Erro!</strong></h2>
+             {{ form.errors.as_text }}
+          </div>
+          {% endif %}
+
+
+          {% if form.initial.id > 0 %}
+          <h3> <strong>EDITAR</strong> | {{equipeobj.display}} | #{{equipeobj.hashtag}} </h3>
+          <input name="equipe"  value="{{equipeobj.id}}" type="hidden" >
+          <input name="id"  value="{{form.initial.id|default:''}}" type="hidden" >
+
+          {% else %}
+
+          <h3> <strong>NOVO</strong> | {{equipeobj.display}} | #{{equipeobj.hashtag}} </h3>
+          <input name="equipe"  value="{{equipeobj.id|default:''}}" type="hidden" >
+          <input name="id"  value="{{ form.initial.id|default:''}}" type="hidden" >
+
+          {% endif %}
+             <div class="ui-body-a" >
+                        <br>
+                            
+                            <label for="name">Nome do jogador:</label>
+                            <input type="text" required value="{% if form.initial.id > 0 %}{{ form.nome.value }}{% endif %}" name="{{ form.nome.name }}" id="idNome" placeholder="Ex: Neymar Jr">                            
+
+                              
+                            <label for="name">Display:</label>
+                            <input type="text" required value="{% if form.initial.id > 0 %}{{ form.display.value }}{% endif %}" name="{{ form.display.name }}" id="idDisplay" placeholder="Ex: Neymar">                              
+
+                            
+                            <label for="numero">Número:</label>
+                            <input type="range" name="{{ form.num.name }}" id="slider-1" min="0" max="100" value="{% if form.initial.id > 0 %}{{ form.num.value }}{% endif %}" data-popup-enabled="true">
+                            
+
+                        <br>
+
+                            <div class="ui-grid-a">
+                                <div class="ui-block-a"><button class="ui-btn-g" data-theme="g" type="submit" >Salvar</button></div>
+                                <div class="ui-block-b"><a href="/futebol/jogadores/{{equipeobj.id}}" rel="external"  data-role="button" data-theme="a" >Cancelar</a></div>
+                            </div>
+
+                            {% if form.initial.id > 0 %}
+                             <a href="/futebol/jogadores/del/{{ form.initial.id }}/"  rel="external" data-theme="d" data-role="button" data-iconpos="top" data-icon="delete">Excluir</a>                         
+                            {% endif %}
+                 </form>
+    </div></div>
+{% endblock content %}

@@ -1,0 +1,56 @@
+
+{% load i18n %}
+{% load account %}
+{% load url from future %}
+
+{% load staticfiles %} <!-- PARA USAR O CAMINHO PADRAO STATIC_URL -->
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     <link rel="stylesheet" type="text/css" href="http://ququplay.github.io/jquery-mobile-flat-ui-theme/css/jquery.mobile.flatui.css" />
+    
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}themes/css/jquery.mobile.flatui.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}themes/css/icons/jqm-icon-pack-fa.css"/>
+
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+
+  </head>
+  
+  <body>
+    <div role="page" data-title="Sport NOW!">
+        <div data-role="header" data-theme="a" data-position="fixed">
+        <a data-iconpos="notext" data-role="button" href="/" data-icon="flag" title="Site" >Site</a>
+        <h3> APP Sport NOW! </h3>
+        </div>
+
+			<div class="container"  data-theme="a" data-role="content">
+				<h1 align="center">Entrar</h1>
+				{% if socialaccount.providers  %}
+				<p align="center">Acesse o <strong>Sport NOW!</strong> com:</p>
+
+					<div class="socialaccount_ballot" id="social_account">
+
+					  <ul align="center" class="socialaccount_providers">
+					    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+					  </ul>
+				{%endif%}
+					 
+
+					</div>
+				
+			</div>
+
+
+<div data-role="footer" data-position="fixed">
+      <p align="center" ><small>&copy; Sport <strong>NOW!</strong> - 2014 | sportnow.herokuapp.com</small></p>
+</div>
+  	</div>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div data-role="header" data-theme="c">
+      <h1>Tipos de comentários</h1>
+    </div>
+
+    	<!-- panel1  -->
+	      <div data-role="panel" style="background:#2c3e50" id="panel1" data-theme="a" data-position="right" data-display="reveal" >
+            <h3 align="center" data-theme="a" data-role="header"> MENU</h3>
+
+
+            <a href="/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="c" data-role="button" data-iconpos="left" data-icon="">Home</a>
+            
+
+	        <a href="#" data-rel="close" class="ui-btn ui-btn-d ui-mini ui-icon-delete" rel="external" data-theme="d" data-role="button" data-iconpos="left" data-icon="delete">Fechar</a>
+        </div>
+      <!-- /panel1  -->  
+    <div data-role="content" class="ui-content" align="center" >
+            <h3> Modalidade: FUTEBOL</h3>
+            <p>Os tipos são as formas de iteração que você fará com o <strong>Sport NOW!</strong></p>
+            <div data-role="collapsible" data-theme="f" data-content-theme="f">
+                <h4>Comentário - SC </h4>
+                <p>O comentário deste tipo terá somente o comentário, sem iterações com o APP.</p>
+                <p><u><small>Exemplo:</small></u><i> Vem amigos da REDI GLÓBULO!!</i></p>
+            </div>
+
+            <div data-role="collapsible" data-theme="f" data-content-theme="f">
+            <h4>Equipe01 - SE </h4>
+            <p>O comentário terá 1 equipe. O usuário escolherá se será a equipe da casa ou a visitante.</p>
+            <p><u><small>Exemplo:</small></u><i> Após sequência ruim <strong>{Equipe01}</strong> consegue uma excelente vitória.</i></p>
+            </div>
+
+            <div data-role="collapsible" data-theme="f" data-content-theme="f">
+            <h4>Equipe01+Equipe02 - EE </h4>
+            <p>O comentário terá 2 equipes. O usuário escolherá entre a equipe casa ou visitante.</p>
+            <p><u><small>Exemplo:</small></u><i>Vitória elástica aplicada pelo <strong>{Equipe01}</strong> na casa lotada da <strong>{Equipe02}</strong> .</i></p>
+            </div>
+
+            <div data-role="collapsible" data-theme="f" data-content-theme="f">
+            <h4>Equipe1+Jogador1 - EJ </h4>
+            <p>O comentário terá 1 equipe e 1 jogador. O usuário escolherá entre a equipe casa ou visitante e entre os jogadores de ambas equipes.</p>
+            <p><u><small>Exemplo:</u></small><i> Gooooollll do <strong>{Equipe01}</strong> . Belo chute do <strong>{Jogador1}</strong> .</i></p>
+            </div>
+
+            <div data-role="collapsible" data-theme="f" data-content-theme="f">
+            <h4>Jogador1 - SJ </h4>
+            <p>O comentário terá 1 jogador. O usuário escolherá entre os jogadores das equipes da casa e visitante.</p>
+            <p><u><small>Exemplo:</u></small><i> <strong>{Jogador1}</strong> Sai mancando. Já tem gente aquecendo no banco .</i></p>
+            </div>
+
+            <div data-role="collapsible" data-theme="f" data-content-theme="f">
+            <h4>Jogador1+Jogador2'- JJ </h4>
+            <p>O comentário terá 2 jogadores, que serão escolhidos entres as duas equipes.</p>
+            <p><u><small>Exemplo:</u></small><i> <strong>{Jogador1}</strong>tabela lindo com <strong>{Jogador2}</strong>, belo lance.</i></p>
+            </div>
+    </div>  
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <div data-role="header" >
+      <a data-iconpos="left" href="/futebol/equipes/" data-role="button" data-icon="carat-l" title="Equipes">Equipes</a>
+      <h1></h1>
+      <a data-iconpos="right" href="#panel1" data-role="button" data-icon="flat-menu">Menu</a>
+    </div>
+ 
+
+    <div data-role="header" data-theme="g">
+      <h2> FUTEBOL  </h2>
+    </div>
+
+
+    <div data-role="main" class="ui-content" align="center" data-theme="a" data-content-theme="a">
+        <form class="form-horizontal" action="../../save/" method="POST" role="form">{% csrf_token %}
+          <input type="hidden" name="codigo" id="codigo" value="{{ equipe.pk|default_if_none:'0' }}">
+          {% if equipe.pk > 0 %}      
+          <input type="hidden" value="{{equipe.modalidade_id}}" name="modalidade" id="idModalidade" />
+          {% else %}
+          <input type="hidden" value="{{modalidade.id}}" name="modalidade" id="idModalidade2" />
+          {% endif %} 
+
+      
+<div data-role="page" data-dialog="true">
+
+		<div data-role="header" data-theme="b">
+		<h1>Dialog</h1>
+		</div>
+
+		<div role="main" class="ui-content">
+		<h1>Delete page?</h1>
+		<p>This is a regular page, styled as a dialog. To create a dialog, just link to a normal page and include a transition and <code>data-rel="dialog"</code> attribute.</p>
+			<a href="index.php" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-a">Sounds good</a>
+			<a href="index.php" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-a">Cancel</a>
+		</div>
+	</div>
+
+
+{% endblock content %}

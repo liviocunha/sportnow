@@ -1,0 +1,28 @@
+{% load endless %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+	<h1>Testando</h1>
+    	
+
+
+{% paginate equipes %}
+{% for equipe in equipes %}
+    <li><a title="EDITAR" href="/futebol/equipes/edit/{{ equipe.pk }}/" rel="external">|#{{equipe.hashtag  }} |  {{  equipe.name}}</a></li>
+{% endfor %}
+{% get_pages %}
+Mostrando equipes
+{{ pages.current_start_index }}-{{ pages.current_end_index }} de
+{{ pages.total_count }}.
+{# Just print pages to render the Digg-style pagination. #}
+{{ pages }}
+
+
+
+
+</body>
+</html>

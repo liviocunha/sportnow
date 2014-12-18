@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+	<select>
+		<option>Escolha uma categoria</option>
+             <option value="1">Somente Comentário</option>
+             <option value="2">Somente 1 Time</option>
+             <option value="3">Casa+Visitante</option>
+             <option value="4">Time+Jogador</option>
+             <option value="5">Somente 1 Jogador</option>
+             <option value="6">JogadorA+JogadorB</option>
+	</select>
+
+<div id="datos">
+</div>
+
+{% block js %}
+	<script>
+
+        $('select').on('change', inicio);
+
+        function inicio(){
+        	var id = $(this).val();
+        	var cat= {{pk}};
+        	$.ajax({
+        		data : {'id':id},
+        		url : '/futebol/buscarajax/',
+        		type: 'get',
+        		success: function(data){
+        			console.log(data);
+        			var html = ""
+        			for (var i = 0; i < data.length; i++) {
+        				html += '<ul><li>'+data[i].fields.name+'|'+data[i].fields.desc+'</li></ul>'
+        			}
+        			$('#datos').html(html);
+        		}
+
+        	});
+        }
+
+	</script>
+{% endblock %}
+
+{% endblock %}
+

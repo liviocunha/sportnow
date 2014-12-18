@@ -1,0 +1,98 @@
+    <!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+ 
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <div data-role="header" data-theme="c">
+      <a data-iconpos="left" href="/futebol/categorias/edit/{{pk}}/" data-role="button" data-icon="carat-l" title="Editar"><small>{{categoria.name}}</small></a>
+      <h2> FUTEBOL</h2>
+    </div>
+    <div data-role="header" data-theme="e">
+      <h1> Categorias de Comentários</h1>
+    </div>
+ 
+    <br>
+    <div data-role="content" class="ui-content" align="center" data-theme="a" >
+
+            <input name="idCategoria" id="idCategoria" value="{{ pk }}" type="hidden" >
+            <h2> <strong>Categoria:</strong> {{categoria.name}}</h2>
+            <br>
+            <label for="select-choice-a" class="select">Selecione o Tipo de Comentário:</label>
+            <select name="tipo" id="tipo" data-native-menu="false" data-theme="a">
+                <option>Tipo</option>
+                <option value="1">Somente Comentário</option>
+                <option value="2">Somente 1 Time</option>
+                <option value="3">Casa+Visitante</option>
+                <option value="4">Time+Jogador</option>
+                <option value="5">Somente 1 Jogador</option>
+                <option value="6">JogadorA+JogadorB</option>
+            </select>
+
+            <ul id="listcomentarios" data-role="listview" text-align="center" data-inset="true">
+                <li data-role="list-divider" data-theme="a" >Comentários</li>
+
+            </ul>
+        
+            <br>
+    </div>  
+
+
+    <script>
+
+        $('select').on('change', inicio);
+
+        function inicio(){
+            var id = $(this).val();
+            var cat = {{pk}};
+            dados = {'id':id, 'cat':cat};
+            $.ajax({
+                data : dados,
+                url : '/futebol/buscarajax/',
+                type: 'get',
+                success: function(data){
+                    console.log(data);
+ 
+                    if (data.length >= '1' ){
+                        var html = '<li data-role="list-divider" data-theme="a" >Comentários<span class="ui-li-count">'+data.length+'</span></li><li></li>'
+                        for (var i = 0; i < data.length; i++) {
+                            html += '<li data-theme="a" ><a title="EDITAR" href="/futebol/comentarios/edit/'+data[i].pk+'/" rel="external"><h2>'+data[i].fields.name+'</h2><p>'+data[i].fields.desc+'</p></a></li><li data-theme="a" ></li>'
+                        }
+                      $('#listcomentarios').html(html);     
+                   }else{
+                       var html = ''
+                        html += '<li data-role="list-divider" data-theme="a" >Comentários</li><li><small>Sem comentários para o tipo.</small></li>'
+                      $('#listcomentarios').html(html);
+                   }                        
+                   
+      
+                      $('#listcomentarios').html(html);
+                    $('#listcomentarios').listview('refresh');
+
+                }
+
+            });
+        }
+
+    </script>
+
+
+
+  </body>
+
+</html>
+
+
+
+
+
+
+
+

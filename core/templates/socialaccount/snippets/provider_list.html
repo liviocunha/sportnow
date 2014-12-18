@@ -1,0 +1,18 @@
+{% load socialaccount %}
+
+{% for provider in socialaccount.providers %}
+{% if provider.id == "openid" %}
+{% for brand in provider.get_brands %}
+<li>
+  <a align="center" title="{{brand.name}}" 
+     rel="external" class="socialaccount_provider {{provider.id}} {{brand.id}}" 
+     href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
+     >{{brand.name}}</a>
+</li>
+{% endfor %}
+{% endif %}
+  <a align="center"   title="{{provider.name}}" rel="external" class="socialaccount_provider {{provider.id}} ui-btn ui-btn-c ui-btn-inline ui-btn-icon-bottom {% if provider.name == 'Twitter' %}ui-icon-twitter{% else %}ui-icon-facebook{% endif %} " 
+     href="{% provider_login_url provider.id process=process %} " id="{{provider.name}}" style="text-align: center;">{{provider.name}}</a>
+{% endfor %}
+
+

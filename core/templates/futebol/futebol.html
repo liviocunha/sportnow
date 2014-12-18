@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <div data-role="header" data-theme="c">
+      <h1> FUTEBOL</h1>
+    </div>
+    <div data-role="header" data-theme="e">
+      <h1>Dashboard</h1>
+    </div>
+
+
+    	<!-- panel1  -->
+	      <div data-role="panel" style="background:#2c3e50" id="panel1" data-theme="a" data-position="right" data-display="reveal" >
+            <h3 align="center" data-theme="a" data-role="header"> MENU</h3>
+
+
+            <a href="/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="c" data-role="button" data-iconpos="left" data-icon="">Home</a>
+            
+            <p align="center" data-role="header">Perfil:</p>
+            <a href="/accounts/social/connections/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Redes Sociais</a>
+            <a href="/accounts/logout/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Logout</a>
+	        <a href="#" data-rel="close" class="ui-btn ui-btn-d ui-mini ui-icon-delete" rel="external" data-theme="d" data-role="button" data-iconpos="left" data-icon="delete">Fechar</a>
+        </div>
+      <!-- /panel1  -->  
+    <br>
+
+    <div data-role="content" class="ui-content" align="center" >
+        <div class="ui-grid-a ui-responsive">
+            <div data-theme="g" class="ui-block-a"><a href="/futebol/partidas/escolhaequipes/" class="ui-shadow ui-nodisc-icon ui-btn ui-btn-g ui-corner-all ui-btn-icon-right ui-icon-plus">Nova PARTIDA</a></div>
+            <div data-theme="f" class="ui-block-c"><a  href="/futebol/partidas/iniciadas/" rel="external" class="ui-nodisc-icon ui-shadow ui-btn ui-btn-b ui-corner-all ui-btn-icon-right ui-icon-list">Partidas iniciadas</a></div>
+            <div class="ui-block-c"><a href="/futebol/equipes/" rel="external" class="ui-shadow ui-nodisc-icon ui-btn ui-btn-f ui-corner-all ui-btn-icon-right ui-icon-list">Equipes</a></div>
+            <div class="ui-block-c"><a href="/futebol/comentarios/" rel="external" class="ui-shadow ui-nodisc-icon ui-btn ui-btn-f ui-corner-all ui-btn-icon-right ui-icon-comments">Comentários</a></div>
+
+        </div>
+    </div>  
+
+
+
+
+{% endblock content %}

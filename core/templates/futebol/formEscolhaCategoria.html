@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+
+    <div data-role="header" data-theme="c">
+      <a data-iconpos="left" href="/futebol/comentarios/" data-role="button" data-icon="carat-l" title="Comentarios"><small>Comentários</small></a>
+      <h2> FUTEBOL  </h2>
+    </div>
+
+    <div data-role="header" data-theme="e">
+      <h1> Comentários</h1>
+    </div>
+
+
+
+    <div data-role="content" class="ui-content" align="center" >
+        <form class="form-horizontal" action="/futebol/comentarios/new" method="POST" data-role="form">{% csrf_token %}
+                {% if msg %}
+                    <div data-role="header" data-theme="d"> 
+                      <p>ERRO: Não há categorias cadastradas.</p>
+                      <p>Nova Categoria <a href="/futebol/categorias/new" rel="external" class="ui-btn  ui-nodisc-icon ui-corner-all ui-icon-plus-circle ui-btn-icon-notext ui-btn-g ui-btn-inline">aqui</a></p>
+                    </div>
+                {% endif %}
+
+                <div class="ui-body-a" >
+                           
+                     {% if categorias %}   
+                     <label for="select-choice-a" class="select">Selecione a Categoria do Comentário:</label> 
+                     <select name="tipo" id="tipo" data-native-menu="true" data-theme="a"> 
+                     <option>Categoria</option>
+                     {% for categoria in categorias %}
+                        <option value="{{categoria.pk}}">{{categoria.name}}</option>            
+                      {% endfor %}
+                      </select>
+
+                        <br>
+
+                            <div class="ui-grid-a">
+                                <div class="ui-block-a"><button class="ui-btn-g" data-theme="g" type="submit" >Continuar...</button></div>
+                                <div class="ui-block-b"><a href="/futebol/comentarios" rel="external"  data-role="button" data-theme="a" >Cancelar</a></div>
+                            </div>
+                    {% endif %}
+                 </form>
+    </div></div>
+
+{% endblock content %}

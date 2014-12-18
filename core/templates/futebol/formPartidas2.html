@@ -1,0 +1,34 @@
+
+
+    <div data-role="content" class="ui-content" align="center" >
+        <form class="form-horizontal" action="/futebol/partidas/save" method="POST" data-role="form">{% csrf_token %}
+
+          <input name="id"  value="{{ form.initial.id|default:'' }}" type="hidden" >
+          <input name="{{ form.user.name }}"  value="1" type="hidden" >
+          <input name="{{ form.id_casa.name }}"  value="1" type="hidden" >
+          <input name="{{ form.id_visitante.name }}"  value="2" type="hidden" >
+          <input name="{{ form.status.name }}"  value="1" type="hidden" >
+                <div class="ui-body-a" >
+                        <br>
+                           
+                        <label for="data">Data:</label>
+                        <input type="date" name="{{ form.data.name }}" id="date" value="29/09/2014">
+                        <label for="hora">Hora:</label>
+                        <input type="text" name="{{ form.hora.name }}" id="hora" value="10:30"  placeholder="Ex:21:45" />
+                       
+                        <label for="cidade">Cidade:</label>
+                        <input type="text"  name="{{ form.cidade.name }}" value="Santos" id="idCidade" placeholder="Ex: Santos" />
+
+                        <label for="local">Local:</label>
+                        <input type="text"  name="{{ form.local.name }}" value="V.Belmiro" id="idLocal" placeholder="Ex:V.Belmiro" />
+                        <br>
+
+                            <div class="ui-grid-a">
+                                <div class="ui-block-a"><button class="ui-btn-g" data-theme="g" type="submit" >Iniciar Partida</button></div>
+                                <div class="ui-block-b"><a href="/futebol/comentarios" rel="external"  data-role="button" data-theme="a" >Cancelar</a></div>
+                            </div>
+
+                 </form>
+    </div></div>
+
+

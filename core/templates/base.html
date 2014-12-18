@@ -1,0 +1,45 @@
+{% load staticfiles %} <!-- PARA USAR O CAMINHO PADRAO STATIC_URL -->
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sport NOW!</title>
+
+    <link rel="stylesheet" type="text/css" href="http://ququplay.github.io/jquery-mobile-flat-ui-theme/css/jquery.mobile.flatui.css" />
+    <link rel="stylesheet" href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/master/jquery.mobile.datepicker.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}themes/css/jquery.mobile.flatui.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}themes/css/icons/jqm-icon-pack-fa.css"/>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+
+  </head>
+
+  <body>
+  <div role="page" data-title="Sport NOW!">
+        <div data-role="header" data-theme="a" data-position="fixed" id="myPage" >
+        <a href="/" class="ui-btn  ui-nodisc-icon ui-corner-all ui-icon-home ui-btn-icon-notext ui-btn-a ui-btn-inline">Home</a>
+        <h1> APP Sport NOW! </h1>
+        <a data-iconpos="notext" href="#panel1" data-role="button" class="ui-nodisc-icon" data-icon="bars" title="Menu" >Menu</a>
+        </div>
+
+        {% block content %}
+
+        {% endblock content %}
+
+        <br>	<br>
+  <div data-role="footer" data-position="fixed">
+      <p align="center" >&copy; 2014 - Lívio A. Cunha</p>
+  </div>
+  
+  </div>
+
+  </body>
+
+{% block js %}
+{% endblock js%}
+</html>
+

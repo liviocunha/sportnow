@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+    <div data-role="header" data-theme="c">
+      <a data-iconpos="left" data-role="button" href="/accounts/logout/" data-icon="" title="Home" ><small></small></a>
+      <h1>Home</h1>
+    </div>
+
+    	<!-- panel1  -->
+	      <div data-role="panel" style="background:#2c3e50" id="panel1" data-theme="a" data-position="right" data-display="reveal" >
+            <h3 align="center" data-theme="a" data-role="header"> MENU</h3>
+           
+            <p align="center" data-role="header">Perfil:</p>
+            <a href="/accounts/social/connections/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Redes Sociais</a>
+            <a href="/accounts/logout/"   class="ui-btn ui-btn-c ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Logout</a>
+	        <a href="#" data-rel="close" class="ui-btn ui-btn-d ui-mini ui-icon-delete" rel="external" data-theme="d" data-role="button" data-iconpos="left" data-icon="delete">Fechar</a>
+        </div>
+       <!-- /panel1 -->          
+    <br>
+
+    <div data-role="content" class="ui-content" align="center" >            
+             {%if tmsg%}
+             <h4>{{tmsg}}</h4>
+             {% endif %}
+            <h2> Bem vindo <strong>{{user|upper}}</strong> !</h2>
+            <h3 align="center" > Escolha a modalidade: </h3>
+
+           <a href="/futebol/"  rel="external" class="ui-nodisc-icon" data-theme="b" data-role="button" data-iconpos="right" data-icon="action">Futebol</a>
+           <a href="/basquete/"  class="ui-btn ui-nodisc-icon ui-state-disabled" rel="external" data-theme="b" data-role="button" data-iconpos="right" data-icon="action">Basquete</a>
+           <a href="/volei/"  class="ui-btn ui-nodisc-icon ui-state-disabled" rel="external" data-theme="b" data-role="button" data-iconpos="right" data-icon="action">Vôlei</a>
+           <!-- <a href="/modalidade/create/"  rel="external" data-theme="h" data-role="button" data-iconpos="right" data-icon="gear">Nova Modalidade</a>-->
+           <a href="/configuracao/"  class="ui-btn ui-nodisc-icon ui-state-disabled" rel="external" data-theme="c" data-role="button" data-iconpos="right" data-icon="gear">Configuração</a>
+    </div>
+
+
+
+{% endblock content %}

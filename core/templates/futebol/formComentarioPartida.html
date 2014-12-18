@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+
+
+    <div data-role="header" data-theme="c">
+      <a data-iconpos="left" href="/futebol/partidas/iniciar/{{partida.pk}}/" data-ajax="false" data-role="button" data-icon="carat-l" title="comentarios"><small>Partida...</small></a>
+      <h2> FUTEBOL </h2>
+    </div>
+    <div data-role="header" data-theme="b">
+      <h1> Preparando Comentário</h1>
+    </div>
+
+
+
+    <div data-role="content" class="ui-content" align="center" >
+        <form class="form-horizontal" action="/futebol/partidas/postar/" data-ajax="false" method="POST" data-role="form">{% csrf_token %}
+
+                      <input name="partida_id"  value="{{partida.pk}}" type="hidden" >
+                      <input name="comentario_id"  value="{{ comentario.pk }}" type="hidden" >
+
+
+
+                        <fieldset id="tempo" data-role="controlgroup" data-type="horizontal">
+                              <legend>Escolha o Tempo:</legend>
+
+                              <input type="radio" name="tempo-choice" id="pre-jogo" value="PreJ" checked="checked">
+                              <label title="1º Tempo" for="pre-jogo">Pré-Jogo</label>
+
+                              <input type="radio" name="tempo-choice" id="1tempo" value="1 T" checked="checked">
+                              <label title="1º Tempo" for="1tempo">1º T</label>
+
+                              <input type="radio" name="tempo-choice" id="2tempo" value="2 T">
+                              <label title="2º Tempo" for="2tempo">2º T</label>
+
+                              <input type="radio" name="tempo-choice" id="1prorrogacao" value="1 P">
+                              <label title="1º T.Prorrogação" for="1prorrogacao">1º P</label>
+
+                              <input type="radio" name="tempo-choice" id="2prorrogacao" value="2 P">
+                              <label title="2º T.Prorrogação" for="2prorrogacao">2º P</label>
+                        </fieldset>
+                        <label for="minuto">Minuto:</label>
+                        <input type="text" required data-clear-btn="true" maxlength="2" pattern="[0-9]*" name="minuto" id="minuto" value="" placeholder="Ex: 15">
+
+
+                        <label for="name">Título:</label>
+                        <input type="text" disabled="disabled" value="{{ comentario.name }}" name="titulo" id="idNome" placeholder="Ex: Gol de cabeça" />
+
+                        <label for="textarea">Comentário:</label>
+                        <textarea cols="40" rows="8" name="desc" id="desc" class="maxlength" maxlength="130" >{{ comentario.desc }}</textarea>
+                        <div><small>Caracteres faltando:</small> <span id="limit" title="130"></span></div> 
+
+                        {% if tipo == 'SC' %}
+                            <div data-role="header" data-theme="c">
+                                  <h3>Somente Comentário</h3>
+                            </div>
+                        {%endif%}
+
+                        {% if tipo == 'SE' %}
+                            <div data-role="header" data-theme="c">
+                                  <h3>Somente Equipe01</h3>
+                            </div>
+                           <fieldset id="equipe-SE" data-role="controlgroup" data-type="horizontal">
+                                <legend>Escolha a Equipe01:</legend>
+                                <input type="radio" name="radio-SE" id="radio-SE-casa" value="{{casa.pk}}" checked="checked">
+                                <label for="radio-SE-casa">{{casa.display}}</label>
+                                <input type="radio" name="radio-SE" id="radio-SE-visitante" value="{{visitante.pk}}">
+                                <label for="radio-SE-visitante">{{visitante.display}}</label>
+                            </fieldset>
+
+                        {%endif%}
+
+                        {% if tipo == 'EE' %}
+                            <div data-role="header" data-theme="c">
+                                  <h3>Equipe01 e Equipe02</h3>
+                            </div>
+
+                            <fieldset id="equipe-EE-E1" data-role="controlgroup" data-type="horizontal">
+                                <legend>Equipe01:</legend>
+                                <input type="radio" name="radio-EE-E1" id="radio-EE-E1-casa" value="{{casa.pk}}" checked="checked">
+                                <label for="radio-EE-E1-casa">{{casa.display}}</label>
+
+                                <input type="radio" name="radio-EE-E1" id="radio-EE-E1-visitante" value="{{visitante.pk}}">
+                                <label for="radio-EE-E1-visitante">{{visitante.display}}</label>
+                            </fieldset>
+                            </br>
+                            <fieldset id="equipe-EE-E2" data-role="controlgroup" data-type="horizontal">
+                                <legend>Equipe02:</legend>
+                                <input type="radio" name="radio-EE-E2" id="radio-EE-E2-casa" value="{{casa.pk}}" checked="checked">
+                                <label for="radio-EE-E2-casa">{{casa.display}}</label>
+
+                                <input type="radio" name="radio-EE-E2" id="radio-EE-E2-visitante" value="{{visitante.pk}}">
+                                <label for="radio-EE-E2-visitante">{{visitante.display}}</label>
+                            </fieldset>
+
+                        {%endif%}
+
+
+                        {% if tipo == 'EJ' %}
+                           <div data-role="header" data-theme="c">
+                              <h3>Equipe e Jogador</h3>
+                           </div>
+                           <fieldset id="equipe-EJ-E1" data-role="controlgroup" data-type="horizontal">
+                                <legend>Escolha a Equipe01:</legend>
+                                <input type="radio" name="radio-EJ-E1" id="radio-EJ-E1-casa" value="{{casa.pk}}" checked="checked">
+                                <label for="radio-EJ-E1-casa">{{casa.display}}</label>
+
+                                <input type="radio" name="radio-EJ-E1" id="radio-EJ-E1-visitante" value="{{visitante.pk}}">
+                                <label for="radio-EJ-E1-visitante">{{visitante.display}}</label>
+                            </fieldset>
+
+                            <div class="ui-field-contain">
+                                <legend>Escolha o Jogador1:</legend>
+                                <select name="select-EJ-J1" id="select-EJ-J1">
+                                    <option>Jogadores...</option>
+                                    <optgroup label="Casa:{{casa.display}}">
+                                        {% for jogadorc in jogadorescasa %}
+                                        <option value="{{jogadorc.pk}}">{{jogadorc.nome}}</option>
+                                        {% endfor %}
+                                      </optgroup>
+                                    <optgroup label="Visitante:{{visitante.display}}">
+                                        {% for jogadorv in jogadoresvisitante %}
+                                        <option value="{{jogadorv.pk}}">{{jogadorv.nome}}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                </select>
+                            </div>
+                        {%endif%}
+
+
+
+                        {% if tipo == 'SJ' %}
+                         <div data-role="header" data-theme="c">
+                              <h3>Somente Jogador1</h3>
+                         </div>
+                         <div class="ui-field-contain">
+                                  <legend>Escolha o Jogador1:</legend>
+                                  <select name="select-SJ-J1" id="select-SJ-J1">
+                                      <option>Jogadores...</option>
+                                      <optgroup label="Casa:{{casa.display}}">
+                                          {% for jogadorc in jogadorescasa %}
+                                          <option value="{{jogadorc.pk}}">{{jogadorc.nome}}</option>
+                                          {% endfor %}
+                                        </optgroup>
+                                      <optgroup label="Visitante:{{visitante.display}}">
+                                          {% for jogadorv in jogadoresvisitante %}
+                                          <option value="{{jogadorv.pk}}">{{jogadorv.nome}}</option>
+                                          {% endfor %}
+                                      </optgroup>
+                                  </select>
+                          </div>
+                        {%endif%}
+
+                        {% if tipo == 'JJ' %}
+                             <div data-role="header" data-theme="c">
+                            <h3>Jogador1 e Jogador2</h3>
+                            </div>
+                                  <div class="ui-field-contain">
+                                  <legend>Escolha o Jogador1:</legend>
+                                  <select name="select-JJ-J1" id="select-SJ-J1">
+                                      <option>Jogadores...</option>
+                                      <optgroup label="Casa:{{casa.display}}">
+                                          {% for jogadorc in jogadorescasa %}
+                                          <option value="{{jogadorc.pk}}">{{jogadorc.nome}}</option>
+                                          {% endfor %}
+                                        </optgroup>
+                                      <optgroup label="Visitante:{{visitante.display}}">
+                                          {% for jogadorv in jogadoresvisitante %}
+                                          <option value="{{jogadorv.pk}}">{{jogadorv.nome}}</option>
+                                          {% endfor %}
+                                      </optgroup>
+                                  </select>
+
+                                  <legend>Escolha o Jogador2:</legend>
+                                  <select name="select-JJ-J2" id="select-SJ-J1">
+                                      <option>Jogadores...</option>
+                                      <optgroup label="Casa:{{casa.display}}">
+                                          {% for jogadorc in jogadorescasa %}
+                                          <option value="{{jogadorc.pk}}">{{jogadorc.nome}}</option>
+                                          {% endfor %}
+                                        </optgroup>
+                                      <optgroup label="Visitante:{{visitante.display}}">
+                                          {% for jogadorv in jogadoresvisitante %}
+                                          <option value="{{jogadorv.pk}}">{{jogadorv.nome}}</option>
+                                          {% endfor %}
+                                      </optgroup>
+                                  </select>
+                          </div>
+                        {%endif%}
+
+                            <div class="ui-grid-a">
+                                <div class="ui-block-a"><button class="ui-btn-b" data-theme="b" type="submit" data-ajax="false" >Pré-Visualizar</button></div>
+                                <div class="ui-block-b"><a href="/futebol/partidas/iniciar/{{partida.pk}}/" rel="external"  data-role="button" data-theme="a" >Cancelar</a></div>
+                            </div>
+
+      </form>
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+<script type="text/javascript" src=to"http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script>
+// quando o documento estiver pronto, faça.
+$(function(){
+ 
+    /*
+        Keyup é um evento que é disparado sempre que o usuário tirou o dedo da tecla.
+        Ou seja, não queremos fazer nada quando o usuário clica, somente quando ele solta
+        a tecla.
+    */
+    $("#desc").keyup(function(event){
+ 
+        // abaixo algumas variáveis que iremos utilizar.
+ 
+        // pega a span onde esta a quantidade máxima de caracteres.
+        var target    = $("#limit");
+ 
+        // pego pelo atributo title a quantidade maxima permitida.
+        var max        = target.attr('title');
+ 
+        // tamanho da string dentro da textarea.
+        var len     = $(this).val().length;
+ 
+        // quantidade de caracteres restantes dentro da textarea.
+        var remain    = max - len;
+ 
+        // caso a quantidade dentro da textarea seja maior que
+        // a quantidade maxima.
+        if(len > max)
+        {
+            // abaixo vamos pegar tudo que tiver na string e limitar
+            // a quantidade de caracteres para o máximo setado.
+            // isso significa que qualquer coisa que seja maior que
+            // o máximo será cortado.
+            var val = $(this).val();
+            $(this).val(val.substr(0, max));
+ 
+            // setamos o restante para 0.
+            remain = 0;
+        }
+ 
+        // atualizamos a quantidade de caracteres restantes.
+        target.html(remain);
+ 
+    });
+ 
+});
+</script>
+{% endblock js %}

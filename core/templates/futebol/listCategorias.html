@@ -1,0 +1,67 @@
+
+{% extends 'base.html' %}
+{% load endless %}
+{% load staticfiles %}
+{% block content %}
+
+
+    <div data-role="header" data-theme="c">
+    <a data-iconpos="left" href="/futebol/comentarios/" data-role="button" data-icon="carat-l" title="Comentários"><small>Comentários</small></a>
+      <h2> FUTEBOL  </h2>
+    </div>
+    <div data-role="header" data-theme="e">
+      <h1> Categorias </h1>
+    </div>
+
+  <!-- panel1  -->
+        <div data-role="panel" id="panel1" data-position="right" data-display="reveal" data-theme="a">
+            <h3 align="center"><strong>MENU</strong></h3>
+            <p align="center">Futebol:</p>
+            <a href="/futebol/comentarios/"   class="ui-btn ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Comentários</a>
+            <a href="/futebol/"   class="ui-btn ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Dashboard</a>
+            <a href="/futebol/partidas/new/"   class="ui-btn ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Nova Partida</a>
+            <a href="/futebol/equipes/"   class="ui-btn ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Equipes</a>
+            <p align="center">Modalidades:</p>
+            <a href="/futebol/"   class="ui-btn ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Futebol</a>
+            <a href="/basquete/"   class="ui-btn ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Basquete</a>
+            <a href="/volei/"   class="ui-btn ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Vôlei</a>
+            
+            <p align="center">Perfil:</p>
+            <a href="/futebol/"   class="ui-btn ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Redes Sociais</a>
+            <a href="/accounts/logout/"   class="ui-btn ui-mini" rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Logout</a>
+            <a align="center" href="#" data-rel="close" class="ui-btn ui-btn-d ui-btn-inline ui-icon-delete ui-btn-icon-notext">Fechar Menu.</a>
+        </div>
+      <!-- /panel1  -->  
+
+    <div data-role="content" class="ui-content" align="center" >
+            <a align="center" href="/futebol/categorias/new"  rel="external" data-theme="g" data-role="button" data-iconpos="right" data-icon="plus">Nova categoria</a>
+
+            {% if categorias %}
+            <ul data-theme="a" data-role="listview" text-align="center" data-inset="true">
+
+              <li data-role="list-divider" data-theme="a" >Categorias</li>
+              <li data-role="list-divider" data-theme="c" ></li>
+                {% paginate categorias %}
+                {% for categoria in categorias %}
+                <li><a title="EDITAR" href="/futebol/categorias/edit/{{ categoria.pk }}/" rel="external">{{ categoria.name}}</a></li>
+                <li></li>
+                {% endfor %}
+                {% get_pages %}
+                Mostrando categorias
+                {{ pages.current_start_index }}-{{ pages.current_end_index }} de
+                {{ pages.total_count }}.
+                <br>
+
+                <div class="pagination" data-theme="b">
+                {{ pages}}
+                </div>
+            </ul>
+            {% else %}
+
+              <p class="ui-body-d ui-overlay-d">Não há categorias cadastrados. Cadastrar <a href="/futebol/categorias/new" rel="external">aqui</a>.</p>
+            {% endif %}
+    </div>
+
+{% endblock content %}
+
+

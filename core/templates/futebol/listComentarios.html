@@ -1,0 +1,54 @@
+
+{% extends 'base.html' %}
+{% load endless %}
+{% load staticfiles %}
+{% block content %}
+
+    <div data-role="header" data-theme="c">
+      <a data-iconpos="left" href="/futebol/" data-role="button" data-icon="carat-l" title="Futebol"><small>Futebol</small></a>
+      <h2> FUTEBOL  </h2>
+    </div>
+
+    	<!-- panel1  -->
+	      <div data-role="panel" id="panel1" data-position="right" data-display="reveal" data-theme="a">
+            <h3>Menu:</h3>
+            <a href="/futebol/"  rel="external" data-theme="a" data-role="button" data-iconpos="left" data-icon="">Modalidades</a>
+            <a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-d ui-icon-delete ui-btn-icon-left ui-btn-inline">Fechar Menu.</a>
+	      </div>
+      <!-- /panel1  -->  
+
+    <div data-role="content" class="ui-content" align="center" >
+            <a align="center" href="/futebol/comentarios/new"  rel="external" data-theme="g" data-role="button" data-iconpos="right" data-icon="plus">Novo Comentário</a>
+
+
+
+            {% if comentarios %}
+            <ul data-theme="a" data-role="listview" text-align="center" data-inset="true">
+
+              <li data-role="list-divider" data-theme="a" >Comentários - Categoria: {{categoria}} | Tipo: {{tipo}}</li>
+              <li data-role="list-divider" data-theme="c" ></li>
+                {% paginate comentarios %}
+                {% for comentario in comentarios %}
+                <li><a title="EDITAR" href="/futebol/comentarios/edit/{{ comentario.pk }}/" rel="external">{{  comentario.name}}</a></li>
+                <li></li>
+                {% endfor %}
+                {% get_pages %}
+                Mostrando comentarios
+                {{ pages.current_start_index }}-{{ pages.current_end_index }} de
+                {{ pages.total_count }}.
+                <br>
+
+                <div class="pagination" data-theme="b">
+                {{ pages}}
+                </div>
+                
+                 
+            </ul>
+            {% else %}
+
+              <p class="ui-body-d ui-overlay-d">Não há comentarios cadastradas. Cadastrar <a href="/futebol/comentarios/new" rel="external">aqui</a>.</p>
+            {% endif %}
+    </div>
+{% endblock content %}
+
+

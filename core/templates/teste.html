@@ -1,0 +1,90 @@
+
+ <!-- PARA USAR O CAMINHO PADRAO STATIC_URL -->
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--
+    <link rel="stylesheet" type="text/css" href="/static/themes/css/jquery.mobile.flatui.css" />
+    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.mobile/1.4.2/jquery.mobile-1.4.2.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />-->
+
+    <link rel="stylesheet" type="text/css" href="/static/themes/css/jquery.mobile.flatui.min.css" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+
+    <!--<script src="/static/themes/jquery.js"></script>
+    <script src="/static/themes/jquery.mobile-1.4.2.min.js"></script>-->
+  </head>
+
+  <body>
+
+  <div role="page">
+        
+
+    <div data-role="header" >
+      <a data-iconpos="left" href="/futebol/jogadores/2" data-role="button" data-icon="carat-l" title="Equipe">Jogadores - Arsenal</a>
+      <h1></h1>
+      <!-- <a data-iconpos="right" href="#panel1" data-role="button" data-icon="flat-menu">Menu</a>-->
+    </div>
+
+
+
+    <div data-role="header" data-theme="b">
+      <h1> FUTEBOL | Arsenal | #ARS</h1>
+    </div>
+
+
+    <div data-role="main" class="ui-content" align="center" data-theme="a" data-content-theme="a">
+        <form class="form-horizontal" action="/futebol/jogadores/save" method="POST" data-role="form"><input type='hidden' name='csrfmiddlewaretoken' value='Tjqpab05FCTa34yRJTnySlqUZIERAmQD' />
+
+          
+
+
+
+          
+          <h3> EDITAR </h3>
+          <input name="equipe"  value="2" type="hidden" >
+          <input name="id"  value="1" type="hidden" >
+          
+                <div class="ui-grid-solo ui-body-b" >
+                        <br>
+                            <div class="ui-block-a">
+                                <label for="name">Nome do jogador:</label>
+                                <input type="text" required value=" Fabregas" name="nome" id="idNome" placeholder="Ex: Neymar" />
+                            </div>
+
+
+                            <div class="ui-block-a">
+                                <label for="slider-num">Número:</label>
+                                <input type="range" name="num" id="slider-num" value="10" min="0" max="100">
+                            </div>
+
+
+                        <br>
+
+                            <div class="ui-grid-a">
+                                <div class="ui-block-a"><button class="ui-btn-g" data-theme="g" type="submit" >Salvar</button></div>
+                                <div class="ui-block-b"><a href="/futebol/jogadores/2" rel="external"  data-role="button" data-theme="a" >Cancelar</a></div>
+                            </div>
+
+                            
+                             <a href="/futebol/jogadores/del/1/"  rel="external" data-theme="d" data-role="button" data-iconpos="top" data-icon="delete">Excluir</a>
+
+
+                              
+                 </form>
+    </div>
+
+        <br>	<br>
+  <div data-role="footer"><p align="center" >&copy; Post <strong>NOW!</strong> - 2014</p></div>
+  </div>
+
+  </body>
+
+
+</html>
+

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+     <div data-role="header" data-theme="c">
+      <a data-iconpos="left" href="/futebol/categorias/" data-role="button" data-icon="carat-l" title="Equipes"><small>Categorias</small></a>
+      <h2> FUTEBOL  </h2>
+    </div>
+    <div data-role="header" data-theme="e">
+      <h1> Categorias de Comentários</h1>
+    </div>
+
+
+    <div data-role="content" class="ui-content" align="center" >
+        <form class="form-horizontal" action="/futebol/categorias/save" method="POST" data-role="form">{% csrf_token %}
+
+          {% if form.errors %}
+          <div data-role="header" data-theme="d">
+             <h2><strong>Erro!</strong></h2>
+             {{ form.errors.as_text }}
+          </div>
+          {% endif %}
+
+          <input name="id"  value="{{ form.initial.id|default:'' }}" type="hidden" >
+          <input name="{{ form.user.name }}"  value="{{ user.id|default:'' }}" type="hidden" >
+
+                <div class="ui-body-a" >
+                        <br>
+                           
+                                <label for="name">Nome da Categoria:</label>
+                                <input type="text" required value="{% if form.initial.id > 0 %} {{ form.name.value }}{% endif %}" name="{{ form.name.name }}" id="idNome" placeholder="Ex:  Gols" />
+                            
+                        <br>
+
+                            <div class="ui-grid-a">
+                                <div class="ui-block-a"><button class="ui-btn-g" data-theme="g" type="submit" >Salvar</button></div>
+                                <div class="ui-block-b"><a href="/futebol/categorias" rel="external"  data-role="button" data-theme="a" >Cancelar</a></div>
+                            </div>
+
+
+
+                            {% if form.initial.id > 0 %}
+                             <a href="/futebol/comentarios/list/{{form.initial.id}}/"  rel="external" data-theme="f" data-role="button"  data-iconpos="top" data-icon="bullets">Comentários</a>
+                             <a href="/futebol/categorias/del/{{ form.initial.id }}/"  rel="external" data-theme="d" data-role="button" data-iconpos="top" data-icon="delete">Excluir</a>
+
+
+                              {% endif %}
+          </form>
+    </div></div>
+
+{% endblock content %}
